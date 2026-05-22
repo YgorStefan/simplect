@@ -1,0 +1,93 @@
+/* ===========================
+   BOTÕES
+   =========================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, opacity .15s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-danger:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-bg);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+  border-color: var(--color-danger);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+/* ===========================
+   BADGES DE STATUS
+   =========================== */
+
+.badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.badge--nao-enviado {
+  background: var(--badge-nao-enviado-bg);
+  color: var(--badge-nao-enviado-text);
+}
+
+.badge--aguardando {
+  background: var(--badge-aguardando-bg);
+  color: var(--badge-aguardando-text);
+}
+
+.badge--assinado {
+  background: var(--badge-assinado-bg);
+  color: var(--badge-assinado-text);
+}
+
+.badge--cancelado {
+  background: var(--badge-cancelado-bg);
+  color: var(--badge-cancelado-text);
+}
