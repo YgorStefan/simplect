@@ -117,6 +117,25 @@
     </div>
   </section>
 
+  <section style="margin-bottom: var(--space-8)">
+    <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-4)">Modal</h2>
+    <button class="btn-primary" type="button" onclick="document.getElementById('demo-modal').showModal()">Abrir modal</button>
+  </section>
+
+  <dialog class="modal" id="demo-modal">
+    <div class="modal__header">
+      Detalhes do contrato
+      <button class="modal__close" type="button" onclick="document.getElementById('demo-modal').close()" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal__body">
+      <p style="color: var(--color-text-muted); font-size: var(--text-sm)">Conteúdo do modal aqui. Pode conter formulários, texto, tabelas ou qualquer outro componente.</p>
+    </div>
+    <div class="modal__footer">
+      <button class="btn-secondary" type="button" onclick="document.getElementById('demo-modal').close()">Fechar</button>
+      <button class="btn-primary" type="button">Confirmar</button>
+    </div>
+  </dialog>
+
   <!-- próximos componentes -->
 
 </main>
