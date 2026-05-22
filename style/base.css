@@ -32,6 +32,7 @@
   --badge-cancelado-bg:      #fee2e2;
   --badge-cancelado-text:    #991b1b;
 
+  /* Espaçamentos — escala 4px (5 e 7 omitidos intencionalmente) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
