@@ -19,7 +19,8 @@
   --color-primary:       #3b82f6;
   --color-primary-hover: #2563eb;
 
-  --color-danger:  #ef4444;
+  --color-danger:       #ef4444;
+  --color-danger-hover: #dc2626;
   --color-success: #22c55e;
   --color-warning: #f59e0b;
 
