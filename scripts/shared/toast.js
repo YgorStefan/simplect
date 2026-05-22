@@ -21,5 +21,6 @@ export function toast(message, type = 'info') {
   setTimeout(() => {
     el.classList.add('removing')
     el.addEventListener('animationend', () => el.remove(), { once: true })
+    setTimeout(() => el.remove(), 300)
   }, 3500)
 }
