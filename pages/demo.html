@@ -15,7 +15,7 @@
     <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
     <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
     <li><a href="/pages/templates/index.html" data-page="templates">Templates</a></li>
-    <li><a href="/pages/demo.html"            data-page="demo" class="active">Demo</a></li>
+    <li><a href="/pages/demo.html"            data-page="demo">Demo</a></li>
   </ul>
 </nav>
 
@@ -159,7 +159,9 @@
 </main>
 
 <script type="module">
+  import { markActive } from '../scripts/shared/router.js'
   import { toast } from '../scripts/shared/toast.js'
+  markActive('demo')
   document.getElementById('toast-success').onclick = () => toast('Contrato criado com sucesso!', 'success')
   document.getElementById('toast-info').onclick    = () => toast('Processando sua solicitação...', 'info')
   document.getElementById('toast-error').onclick   = () => toast('Erro ao salvar. Tente novamente.', 'error')
