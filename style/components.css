@@ -63,6 +63,13 @@
   border-color: var(--color-danger-hover);
 }
 
+.btn-primary.btn-sm,
+.btn-secondary.btn-sm,
+.btn-danger.btn-sm {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+}
+
 /* ===========================
    BADGES DE STATUS
    =========================== */
@@ -127,6 +134,7 @@
   white-space: nowrap;
 }
 
+/* .sortable is only valid on thead th elements */
 .table thead th.sortable {
   cursor: pointer;
   user-select: none;
@@ -135,6 +143,9 @@
 .table thead th.sortable:hover {
   color: var(--color-text);
 }
+
+.table thead th[aria-sort="ascending"]::after  { content: " ↑"; }
+.table thead th[aria-sort="descending"]::after { content: " ↓"; }
 
 .table tbody tr {
   border-bottom: 1px solid var(--color-border);
@@ -146,11 +157,11 @@
 }
 
 .table tbody tr:nth-child(even) {
-  background: #f8fafc;
+  background: var(--color-bg);
 }
 
 .table tbody tr:hover {
-  background: #eff6ff;
+  background: var(--color-row-hover);
 }
 
 .table tbody td {
