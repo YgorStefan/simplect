@@ -3,32 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contratos — upmobb</title>
-  <link rel="stylesheet" href="../../style/base.css">
-  <link rel="stylesheet" href="../../style/components.css">
+  <title>Contratos</title>
   <link rel="stylesheet" href="../../style/contracts.css">
 </head>
 <body>
+  <div class="page">
 
-<nav class="app-nav">
-  <div class="app-nav__brand">upmobb</div>
-  <ul class="app-nav__links">
-    <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
-    <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
-    <li><a href="/pages/templates/index.html" data-page="templates">Templates</a></li>
-  </ul>
-</nav>
+    <header class="page-header">
+      <h1>Contratos</h1>
+    </header>
 
-<main class="app-main">
-  <div class="page-header">
-    <h1 class="page-title">Contratos</h1>
+    <section class="filters">
+      <input
+        type="search"
+        id="search"
+        class="input-search"
+        placeholder="Buscar por contratante, documento ou modelo"
+      >
+      <select id="filter-status" class="select-filter">
+        <option value="">Todos os status</option>
+        <option value="nao_enviado">Não enviado</option>
+        <option value="aguardando_assinatura">Aguardando assinatura</option>
+        <option value="assinado">Assinado</option>
+        <option value="cancelado">Cancelado</option>
+      </select>
+      <button class="btn btn-primary" id="btn-new">Novo contrato</button>
+    </section>
+
+    <div id="error-banner" class="error-banner hidden">
+      <span id="error-message"></span>
+      <button class="btn btn-link" id="btn-retry">Tentar novamente</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="contracts-table" id="contracts-table">
+        <thead>
+          <tr>
+            <th class="sortable" data-field="modelo">
+              Modelo <span class="sort-indicator"></span>
+            </th>
+            <th class="sortable" data-field="contratante">
+              Contratante <span class="sort-indicator"></span>
+            </th>
+            <th>Documento</th>
+            <th>Endereço</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+    </div>
+
+    <nav class="pagination" id="pagination">
+      <button class="btn btn-secondary" id="btn-prev">Anterior</button>
+      <span class="pagination-info" id="pagination-info"></span>
+      <button class="btn btn-secondary" id="btn-next">Próximo</button>
+    </nav>
+
   </div>
-  <!-- conteúdo implementado no sub-projeto 2 -->
-</main>
 
-<script type="module">
-  import { markActive } from '../../scripts/shared/router.js'
-  markActive('contratos')
-</script>
+  <dialog id="dialog-details" class="dialog">
+    <div class="dialog-header">
+      <h2>Detalhes do contrato</h2>
+      <button class="btn-close" id="btn-close-details" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="dialog-body" id="details-body">
+    </div>
+  </dialog>
+
+  <dialog id="dialog-preview" class="dialog dialog-wide">
+    <div class="dialog-header">
+      <h2>Prévia do contrato</h2>
+      <button class="btn-close" id="btn-close-preview" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="dialog-body preview-body" id="preview-body">
+    </div>
+  </dialog>
+
+  <dialog id="dialog-form" class="dialog">
+    <div class="dialog-header">
+      <h2 id="form-title">Novo contrato</h2>
+      <button class="btn-close" id="btn-close-form" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <form id="contract-form" novalidate>
+
+        <div class="form-error hidden" id="form-error"></div>
+
+        <div class="form-group hidden" id="form-group-status">
+          <label for="f-status">Status</label>
+          <select id="f-status" name="status">
+            <option value="nao_enviado">Não enviado</option>
+            <option value="aguardando_assinatura">Aguardando assinatura</option>
+            <option value="assinado">Assinado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="f-modelo">Modelo <span class="required">*</span></label>
+          <select id="f-modelo" name="modelo" required>
+            <option value="">Selecione um modelo</option>
+            <option value="Prestação de Serviços">Prestação de Serviços</option>
+            <option value="Locação Residencial">Locação Residencial</option>
+            <option value="NDA">NDA</option>
+            <option value="Compra e Venda">Compra e Venda</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="f-contratante">Nome do contratante <span class="required">*</span></label>
+          <input type="text" id="f-contratante" name="contratante" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-tipo-documento">Tipo de documento <span class="required">*</span></label>
+            <select id="f-tipo-documento" name="tipoDocumento" required>
+              <option value="">Selecione</option>
+              <option value="CPF">CPF</option>
+              <option value="CNPJ">CNPJ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-documento">Documento <span class="required">*</span></label>
+            <input type="text" id="f-documento" name="documento" inputmode="numeric" maxlength="18" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-email">E-mail <span class="required">*</span></label>
+          <input type="email" id="f-email" name="email" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-sm">
+            <label for="f-cep">CEP <span class="required">*</span></label>
+            <input type="text" id="f-cep" name="cep" inputmode="numeric" maxlength="9" required>
+          </div>
+          <div class="form-group">
+            <label for="f-endereco">Endereço <span class="required">*</span></label>
+            <input type="text" id="f-endereco" name="endereco" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-sm">
+            <label for="f-numero">Número <span class="required">*</span></label>
+            <input type="text" id="f-numero" name="numero" required>
+          </div>
+          <div class="form-group">
+            <label for="f-bairro">Bairro <span class="required">*</span></label>
+            <input type="text" id="f-bairro" name="bairro" required>
+          </div>
+          <div class="form-group">
+            <label for="f-cidade">Cidade <span class="required">*</span></label>
+            <input type="text" id="f-cidade" name="cidade" required>
+          </div>
+          <div class="form-group form-group-xs">
+            <label for="f-uf">UF <span class="required">*</span></label>
+            <select id="f-uf" name="uf" required>
+              <option value="">UF</option>
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AP">AP</option>
+              <option value="AM">AM</option>
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MT">MT</option>
+              <option value="MS">MS</option>
+              <option value="MG">MG</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PR">PR</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RS">RS</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="SC">SC</option>
+              <option value="SP">SP</option>
+              <option value="SE">SE</option>
+              <option value="TO">TO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-conteudo">Conteúdo do contrato</label>
+          <textarea id="f-conteudo" name="conteudo" rows="8" placeholder="Texto do contrato em parágrafos."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-form">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit">Salvar contrato</button>
+        </div>
+
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="dialog-confirm" class="dialog dialog-sm">
+    <div class="dialog-header">
+      <h2>Excluir contrato</h2>
+      <button class="btn-close" id="btn-close-confirm" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <p id="confirm-message" class="confirm-message"></p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" id="btn-cancel-delete">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="btn-confirm-delete">Excluir</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="../../scripts/contracts/list.js"></script>
 </body>
 </html>
