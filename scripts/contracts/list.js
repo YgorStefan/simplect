@@ -14,7 +14,7 @@ const state = {
   sortField: '',
   sortDir: 'asc',
   page: 1,
-  perPage: 4,
+  perPage: 10,
   loading: false,
   saving: false,
   error: null,
