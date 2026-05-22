@@ -1,10 +1,19 @@
 import { getContracts, createContract, updateContract, deleteContract, TEMPLATES } from './contracts.requests.js';
+import { markActive } from '../shared/router.js';
+import { toast } from '../shared/toast.js';
 
 const STATUS_LABELS = {
   nao_enviado: 'Não enviado',
   aguardando_assinatura: 'Aguardando assinatura',
   assinado: 'Assinado',
   cancelado: 'Cancelado',
+};
+
+const STATUS_BADGE = {
+  nao_enviado:           'badge--nao-enviado',
+  aguardando_assinatura: 'badge--aguardando',
+  assinado:              'badge--assinado',
+  cancelado:             'badge--cancelado',
 };
 
 const state = {
@@ -171,7 +180,7 @@ function openDetails(contract) {
         <p class="details-name">${escapeHtml(contract.contratante)}</p>
         <p class="details-sub">${escapeHtml(contract.modelo)}</p>
       </div>
-      <span class="badge badge-${contract.status}">${STATUS_LABELS[contract.status]}</span>
+      <span class="badge ${STATUS_BADGE[contract.status]}">${STATUS_LABELS[contract.status]}</span>
     </div>
     <div class="details-grid">
       <div class="detail-item"><span class="detail-label">Documento</span><span class="detail-value">${escapeHtml(contract.documento)}</span></div>
@@ -267,13 +276,14 @@ async function submitForm(e) {
 
   const data = Object.fromEntries(new FormData(contractForm));
 
+  const isEditing = !!state.editingId;
   state.saving = true;
   btnSubmit.disabled = true;
   btnSubmit.textContent = 'Salvando...';
   formError.classList.add('hidden');
 
   try {
-    if (state.editingId) {
+    if (isEditing) {
       const existing = state.contracts.find(c => c.id === state.editingId);
       const updated = await updateContract(state.editingId, { ...existing, ...data });
       state.contracts = state.contracts.map(c => c.id === state.editingId ? updated : c);
@@ -284,12 +294,13 @@ async function submitForm(e) {
     }
     closeForm();
     render();
+    toast(isEditing ? 'Contrato atualizado com sucesso.' : 'Contrato criado com sucesso.', 'success');
   } catch (err) {
     showFormError(err.message);
   } finally {
     state.saving = false;
     btnSubmit.disabled = false;
-    btnSubmit.textContent = state.editingId ? 'Salvar alterações' : 'Salvar contrato';
+    btnSubmit.textContent = isEditing ? 'Salvar alterações' : 'Salvar contrato';
   }
 }
 
@@ -314,6 +325,7 @@ async function confirmDelete() {
     state.contracts = state.contracts.filter(c => c.id !== id);
     closeConfirm();
     render();
+    toast('Contrato excluído.', 'info');
   } finally {
     btnConfirmDelete.disabled = false;
     btnConfirmDelete.textContent = 'Excluir';
@@ -362,7 +374,7 @@ function render() {
       <td>${escapeHtml(c.contratante)}</td>
       <td>${escapeHtml(c.documento)}</td>
       <td class="address-cell">${escapeHtml(formatAddress(c))}</td>
-      <td><span class="badge badge-${c.status}">${STATUS_LABELS[c.status]}</span></td>
+      <td><span class="badge ${STATUS_BADGE[c.status]}">${STATUS_LABELS[c.status]}</span></td>
       <td class="actions-cell">
         <button class="icon-btn" data-action="details" data-id="${c.id}" title="Ver detalhes" aria-label="Ver detalhes">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -373,7 +385,7 @@ function render() {
         <button class="icon-btn" data-action="edit" data-id="${c.id}" title="Editar" aria-label="Editar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
         </button>
-        <button class="icon-btn icon-btn-danger" data-action="delete" data-id="${c.id}" title="Excluir" aria-label="Excluir">
+        <button class="icon-btn icon-btn--danger" data-action="delete" data-id="${c.id}" title="Excluir" aria-label="Excluir">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
         </button>
       </td>
@@ -412,6 +424,7 @@ async function init() {
 }
 
 await init();
+markActive('contratos');
 
 document.getElementById('search').addEventListener('input', e => {
   state.search = e.target.value;
