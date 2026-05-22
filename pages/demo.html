@@ -145,9 +145,25 @@
     </nav>
   </section>
 
+  <section style="margin-bottom: var(--space-8)">
+    <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-4)">Toasts</h2>
+    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+      <button class="btn-primary" type="button" id="toast-success">Toast sucesso</button>
+      <button class="btn-secondary" type="button" id="toast-info">Toast info</button>
+      <button class="btn-danger" type="button" id="toast-error">Toast erro</button>
+    </div>
+  </section>
+
   <!-- próximos componentes -->
 
 </main>
+
+<script type="module">
+  import { toast } from '../scripts/shared/toast.js'
+  document.getElementById('toast-success').onclick = () => toast('Contrato criado com sucesso!', 'success')
+  document.getElementById('toast-info').onclick    = () => toast('Processando sua solicitação...', 'info')
+  document.getElementById('toast-error').onclick   = () => toast('Erro ao salvar. Tente novamente.', 'error')
+</script>
 
 </body>
 </html>
