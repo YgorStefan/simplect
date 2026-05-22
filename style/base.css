@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-nav-bg:     #0f172a;
+  --color-nav-text:   #f8fafc;
+  --color-nav-active: #3b82f6;
+
+  --color-bg:         #f8fafc;
+  --color-surface:    #ffffff;
+  --color-border:     #e2e8f0;
+
+  --color-text:       #0f172a;
+  --color-text-muted: #64748b;
+
+  --color-primary:       #3b82f6;
+  --color-primary-hover: #2563eb;
+
+  --color-danger:  #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+
+  --badge-nao-enviado-bg:    #f1f5f9;
+  --badge-nao-enviado-text:  #475569;
+  --badge-aguardando-bg:     #fef9c3;
+  --badge-aguardando-text:   #92400e;
+  --badge-assinado-bg:       #dcfce7;
+  --badge-assinado-text:     #166534;
+  --badge-cancelado-bg:      #fee2e2;
+  --badge-cancelado-text:    #991b1b;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --font:      'Inter', system-ui, sans-serif;
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 14px;
+  --text-lg:   16px;
+  --text-xl:   20px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .12);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--text-base);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+/* ---- Top Nav ---- */
+
+.app-nav {
+  background: var(--color-nav-bg);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-6);
+  gap: var(--space-8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-nav__brand {
+  color: var(--color-nav-text);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+.app-nav__links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-1);
+  height: 100%;
+}
+
+.app-nav__links a {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  color: var(--color-nav-text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  opacity: .7;
+  border-bottom: 2px solid transparent;
+  transition: opacity .15s, border-color .15s;
+}
+
+.app-nav__links a:hover {
+  opacity: 1;
+}
+
+.app-nav__links a.active {
+  opacity: 1;
+  color: var(--color-nav-active);
+  border-bottom-color: var(--color-nav-active);
+}
+
+/* ---- Main layout ---- */
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.page-title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin: 0;
+}
