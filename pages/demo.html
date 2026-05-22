@@ -84,6 +84,39 @@
     </div>
   </section>
 
+  <section style="margin-bottom: var(--space-8)">
+    <h2 style="font-size: var(--text-lg); margin-bottom: var(--space-4)">Formulário</h2>
+    <div style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--color-border); max-width: 560px;">
+      <div class="form-grid" style="margin-bottom: var(--space-4)">
+        <div class="form-group">
+          <label class="form-label">Nome <span class="required">*</span></label>
+          <input class="form-input" type="text" placeholder="Ex: Maria Silva">
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mail <span class="required">*</span></label>
+          <input class="form-input form-input--error" type="email" placeholder="email@exemplo.com" value="inválido">
+          <span class="form-error">E-mail inválido</span>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom: var(--space-4)">
+        <label class="form-label">Status</label>
+        <select class="form-select">
+          <option>Não enviado</option>
+          <option>Aguardando assinatura</option>
+          <option>Assinado</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: var(--space-4)">
+        <label class="form-label">Campo desabilitado</label>
+        <input class="form-input" type="text" value="Não editável" disabled>
+      </div>
+      <div style="display: flex; gap: var(--space-2); justify-content: flex-end">
+        <button class="btn-secondary" type="button">Cancelar</button>
+        <button class="btn-primary" type="button">Salvar</button>
+      </div>
+    </div>
+  </section>
+
   <!-- próximos componentes -->
 
 </main>
