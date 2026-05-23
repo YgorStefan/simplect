@@ -37,11 +37,12 @@ test.describe('Contratos', () => {
     expect(badgeCount).toBe(rowCount);
   });
 
-  test('ordenação por coluna altera aria-sort', async ({ page }) => {
+  test('ordenação por coluna adiciona classe active e indicador', async ({ page }) => {
     const th = page.locator('th[data-field="modelo"]');
-    await expect(th).toHaveAttribute('aria-sort', 'none');
+    await expect(th).not.toHaveClass(/active/);
     await th.click();
-    await expect(th).not.toHaveAttribute('aria-sort', 'none');
+    await expect(th).toHaveClass(/active/);
+    await expect(th.locator('.sort-indicator')).toContainText('↑');
   });
 
   test('criar novo contrato mostra toast de sucesso', async ({ page }) => {
