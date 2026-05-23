@@ -436,7 +436,6 @@ async function init() {
   }
 }
 
-await init();
 markActive('contratos');
 
 document.getElementById('search').addEventListener('input', e => {
@@ -510,3 +509,5 @@ btnConfirmDelete.addEventListener('click', confirmDelete);
 document.getElementById('btn-cancel-delete').addEventListener('click', closeConfirm);
 document.getElementById('btn-close-confirm').addEventListener('click', closeConfirm);
 dialogConfirm.addEventListener('click', e => { if (e.target === dialogConfirm) closeConfirm(); });
+
+init();
