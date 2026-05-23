@@ -6,28 +6,82 @@
   <title>Templates — upmobb</title>
   <link rel="stylesheet" href="../../style/base.css">
   <link rel="stylesheet" href="../../style/components.css">
+  <link rel="stylesheet" href="../../style/templates.css">
 </head>
 <body>
 
-<nav class="app-nav">
-  <div class="app-nav__brand">upmobb</div>
-  <ul class="app-nav__links">
-    <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
-    <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
-    <li><a href="/pages/templates/index.html" data-page="templates">Templates</a></li>
-  </ul>
-</nav>
+  <nav class="app-nav">
+    <div class="app-nav__brand">upmobb</div>
+    <ul class="app-nav__links">
+      <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
+      <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
+      <li><a href="/pages/templates/index.html" data-page="templates">Templates</a></li>
+    </ul>
+  </nav>
 
-<main class="app-main">
-  <div class="page-header">
-    <h1 class="page-title">Templates</h1>
-  </div>
-  <!-- conteúdo implementado no sub-projeto 4 -->
-</main>
+  <main class="app-main">
 
-<script type="module">
-  import { markActive } from '../../scripts/shared/router.js'
-  markActive('templates')
-</script>
+    <header class="page-header">
+      <h1 class="page-title">Templates</h1>
+      <button class="btn-primary" id="btn-new">Novo template</button>
+    </header>
+
+    <div class="table-wrapper">
+      <table class="table" id="templates-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Conteúdo</th>
+            <th>Criado em</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Modal: Formulário -->
+  <dialog id="dialog-form" class="modal">
+    <div class="modal__header">
+      <span id="form-title">Novo template</span>
+      <button class="modal__close" id="btn-close-form" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal__body">
+      <form id="template-form" novalidate>
+        <div class="form-error hidden" id="form-error"></div>
+        <div class="form-group">
+          <label class="form-label" for="f-nome">Nome <span class="required">*</span></label>
+          <input type="text" id="f-nome" name="nome" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-conteudo">Conteúdo <span class="required">*</span></label>
+          <textarea id="f-conteudo" name="conteudo" class="form-input template-textarea" rows="12" required></textarea>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
+          <button type="submit" class="btn-primary" id="btn-submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Modal: Confirmação de exclusão -->
+  <dialog id="dialog-confirm" class="modal modal--sm">
+    <div class="modal__header">
+      <span>Excluir template</span>
+      <button class="modal__close" id="btn-close-confirm" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal__body">
+      <p id="confirm-message" class="confirm-message"></p>
+    </div>
+    <div class="modal__footer">
+      <button type="button" class="btn-secondary" id="btn-cancel-delete">Cancelar</button>
+      <button type="button" class="btn-danger" id="btn-confirm-delete">Excluir</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="../../scripts/templates/list.js"></script>
 </body>
 </html>
