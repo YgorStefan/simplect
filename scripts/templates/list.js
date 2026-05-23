@@ -81,7 +81,7 @@ async function submitForm(e) {
     if (isEditing) {
       const updated = await updateTemplate(state.editingId, { nome, conteudo });
       const idx = state.templates.findIndex(t => t.id === state.editingId);
-      if (idx !== -1) state.templates[idx] = updated;
+      if (idx !== -1) state.templates[idx] = { ...state.templates[idx], ...updated };
     } else {
       const created = await createTemplate({ nome, conteudo });
       state.templates.push(created);

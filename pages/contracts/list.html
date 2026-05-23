@@ -102,8 +102,8 @@
       <span id="form-title">Novo contrato</span>
       <button class="modal__close" id="btn-close-form" aria-label="Fechar">&times;</button>
     </div>
-    <div class="modal__body">
-      <form id="contract-form" novalidate>
+    <form id="contract-form" novalidate>
+      <div class="modal__body">
 
         <div class="form-error hidden" id="form-error"></div>
 
@@ -217,13 +217,12 @@
           <textarea id="f-conteudo" name="conteudo" class="form-input form-textarea" rows="8" placeholder="Texto do contrato em parágrafos."></textarea>
         </div>
 
-        <div class="modal__footer">
-          <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
-          <button type="submit" class="btn-primary" id="btn-submit">Salvar contrato</button>
-        </div>
-
-      </form>
-    </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btn-submit">Salvar contrato</button>
+      </div>
+    </form>
   </dialog>
 
   <!-- Modal: Confirmação de exclusão -->

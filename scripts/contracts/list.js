@@ -332,6 +332,15 @@ async function confirmDelete() {
   }
 }
 
+function clearSortIndicators() {
+  document.querySelectorAll('th.sortable').forEach(th => {
+    const indicator = th.querySelector('.sort-indicator');
+    if (indicator) indicator.textContent = '';
+    th.classList.remove('active');
+    th.setAttribute('aria-sort', 'none');
+  });
+}
+
 function render() {
   if (state.error) {
     errorBanner.classList.remove('hidden');
@@ -349,6 +358,7 @@ function render() {
     paginationInfo.textContent = '';
     btnPrev.disabled = true;
     btnNext.disabled = true;
+    clearSortIndicators();
     return;
   }
 
@@ -365,6 +375,7 @@ function render() {
     paginationInfo.textContent = '';
     btnPrev.disabled = true;
     btnNext.disabled = true;
+    clearSortIndicators();
     return;
   }
 
@@ -401,9 +412,11 @@ function render() {
     if (th.dataset.field === state.sortField) {
       indicator.textContent = state.sortDir === 'asc' ? ' ↑' : ' ↓';
       th.classList.add('active');
+      th.setAttribute('aria-sort', state.sortDir === 'asc' ? 'ascending' : 'descending');
     } else {
       indicator.textContent = '';
       th.classList.remove('active');
+      th.setAttribute('aria-sort', 'none');
     }
   });
 }

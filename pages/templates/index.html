@@ -48,8 +48,8 @@
       <span id="form-title">Novo template</span>
       <button class="modal__close" id="btn-close-form" aria-label="Fechar">&times;</button>
     </div>
-    <div class="modal__body">
-      <form id="template-form" novalidate>
+    <form id="template-form" novalidate>
+      <div class="modal__body">
         <div class="form-error hidden" id="form-error"></div>
         <div class="form-group">
           <label class="form-label" for="f-nome">Nome <span class="required">*</span></label>
@@ -59,12 +59,12 @@
           <label class="form-label" for="f-conteudo">Conteúdo <span class="required">*</span></label>
           <textarea id="f-conteudo" name="conteudo" class="form-input template-textarea" rows="12" required></textarea>
         </div>
-        <div class="modal__footer">
-          <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
-          <button type="submit" class="btn-primary" id="btn-submit">Salvar</button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btn-submit">Salvar</button>
+      </div>
+    </form>
   </dialog>
 
   <!-- Modal: Confirmação de exclusão -->
