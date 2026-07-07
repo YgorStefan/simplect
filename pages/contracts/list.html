@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contratos — upmobb</title>
+  <title>Contratos — simplect</title>
   <link rel="stylesheet" href="../../style/base.css">
   <link rel="stylesheet" href="../../style/components.css">
   <link rel="stylesheet" href="../../style/contracts.css">
 </head>
 <body>
 
-  <nav class="app-nav">
-    <div class="app-nav__brand">upmobb</div>
+  <nav class="app-nav" aria-label="Navegação principal">
+    <div class="app-nav__brand">simplect</div>
     <ul class="app-nav__links">
       <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
       <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
@@ -31,8 +31,9 @@
         id="search"
         class="form-input"
         placeholder="Buscar por contratante, documento ou modelo"
+        aria-label="Buscar contratos"
       >
-      <select id="filter-status" class="form-select">
+      <select id="filter-status" class="form-select" aria-label="Filtrar por status">
         <option value="">Todos os status</option>
         <option value="nao_enviado">Não enviado</option>
         <option value="aguardando_assinatura">Aguardando assinatura</option>
@@ -68,7 +69,7 @@
       </table>
     </div>
 
-    <nav class="pagination" id="pagination">
+    <nav class="pagination" id="pagination" aria-label="Navegação de páginas">
       <button class="btn-secondary" id="btn-prev">Anterior</button>
       <span class="pagination__info" id="pagination-info"></span>
       <button class="btn-secondary" id="btn-next">Próximo</button>
