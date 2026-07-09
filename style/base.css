@@ -95,7 +95,7 @@ body {
 }
 
 .app-nav__brand::before {
-  content: 'U';
+  content: 'S';
   display: inline-flex;
   align-items: center;
   justify-content: center;

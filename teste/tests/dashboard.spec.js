@@ -7,7 +7,7 @@ test.describe('Dashboard', () => {
   });
 
   test('título da página está correto', async ({ page }) => {
-    await expect(page).toHaveTitle('Dashboard — upmobb');
+    await expect(page).toHaveTitle('Dashboard — simplect');
   });
 
   test('link Dashboard na nav está ativo', async ({ page }) => {

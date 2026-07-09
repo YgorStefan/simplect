@@ -7,7 +7,7 @@ test.describe('Templates', () => {
   });
 
   test('título da página está correto', async ({ page }) => {
-    await expect(page).toHaveTitle('Templates — upmobb');
+    await expect(page).toHaveTitle('Templates — simplect');
   });
 
   test('link Templates na nav está ativo', async ({ page }) => {

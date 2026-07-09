@@ -7,7 +7,7 @@ test.describe('Contratos', () => {
   });
 
   test('título da página está correto', async ({ page }) => {
-    await expect(page).toHaveTitle('Contratos — upmobb');
+    await expect(page).toHaveTitle('Contratos — simplect');
   });
 
   test('link Contratos na nav está ativo', async ({ page }) => {

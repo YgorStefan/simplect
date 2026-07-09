@@ -1,0 +1,1 @@
+{"name":"e2e","private":true,"type":"module","dependencies":{"playwright":"^1.60.0","vscode-css-languageservice":"^6.3.10","vscode-languageserver-textdocument":"^1.0.12"}}

@@ -1,2 +1,7 @@
-teste/
 docs/
+teste/node_modules/
+teste/test-results/
+teste/screenshots/
+teste/shots/
+teste/manual-shots/
+teste/debug-*.png
