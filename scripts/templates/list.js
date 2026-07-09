@@ -2,8 +2,10 @@ import { getTemplates, createTemplate, updateTemplate, deleteTemplate } from './
 import { markActive } from '../shared/router.js';
 import { toast } from '../shared/toast.js';
 import { escapeHtml, formatDate, truncate } from '../shared/format.js';
+import { requireAuth, mountUserMenu } from '../shared/auth.js';
 
 const state = { templates: [], editingId: null, deletingId: null };
+const session = requireAuth();
 
 function render() {
   const tbody = document.getElementById('table-body');
@@ -135,4 +137,7 @@ async function init() {
   render();
 }
 
-init();
+if (session) {
+  mountUserMenu(session);
+  init();
+}

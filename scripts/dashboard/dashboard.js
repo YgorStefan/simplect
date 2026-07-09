@@ -1,6 +1,7 @@
 import { getContracts } from '../contracts/contracts.requests.js';
 import { markActive } from '../shared/router.js';
 import { escapeHtml, formatDate } from '../shared/format.js';
+import { requireAuth, mountUserMenu } from '../shared/auth.js';
 
 const STATUS_LABELS = {
   nao_enviado:           'Não enviado',
@@ -77,4 +78,8 @@ async function init() {
   }
 }
 
-init();
+const session = requireAuth();
+if (session) {
+  mountUserMenu(session);
+  init();
+}

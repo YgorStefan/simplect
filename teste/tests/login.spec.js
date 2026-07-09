@@ -29,4 +29,23 @@ test.describe('Login', () => {
     await page.waitForURL('**/pages/dashboard/index.html');
     await expect(page).toHaveURL(/dashboard\/index\.html/);
   });
+
+  test('acessar o dashboard sem sessão redireciona pro login', async ({ page }) => {
+    await page.goto('/pages/dashboard/index.html');
+    await page.waitForURL('**/pages/login/index.html');
+    await expect(page).toHaveURL(/login\/index\.html/);
+  });
+
+  test('logout limpa a sessão e redireciona pro login', async ({ page }) => {
+    await page.fill('#f-email', 'admin@simplect.com');
+    await page.fill('#f-senha', 'admin123');
+    await page.click('#btn-submit');
+    await page.waitForURL('**/pages/dashboard/index.html');
+
+    await page.click('#btn-logout');
+    await page.waitForURL('**/pages/login/index.html');
+
+    const session = await page.evaluate(() => localStorage.getItem('simplect:session'));
+    expect(session).toBeNull();
+  });
 });

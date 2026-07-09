@@ -2,6 +2,11 @@ import { test, expect } from 'playwright/test';
 
 test.describe('Contratos', () => {
   test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('simplect:session', JSON.stringify({
+        id: '1', nome: 'Admin Geral', email: 'admin@simplect.com', papel: 'admin',
+      }));
+    });
     await page.goto('/pages/contracts/list.html');
     await page.waitForSelector('#table-body tr');
   });

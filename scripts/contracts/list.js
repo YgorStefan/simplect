@@ -2,6 +2,7 @@ import { getContracts, createContract, updateContract, deleteContract, TEMPLATES
 import { markActive } from '../shared/router.js';
 import { toast } from '../shared/toast.js';
 import { escapeHtml, formatDate, onlyDigits, maskCPF, maskCNPJ, maskCEP } from '../shared/format.js';
+import { requireAuth, mountUserMenu } from '../shared/auth.js';
 
 const STATUS_LABELS = {
   nao_enviado: 'Não enviado',
@@ -59,6 +60,8 @@ const confirmMessage = document.getElementById('confirm-message');
 const btnConfirmDelete = document.getElementById('btn-confirm-delete');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const session = requireAuth();
 
 function formatAddress(c) {
   return `${c.endereco}, ${c.numero} - ${c.bairro}, ${c.cidade}/${c.uf}`;
@@ -474,4 +477,7 @@ document.getElementById('btn-cancel-delete').addEventListener('click', closeConf
 document.getElementById('btn-close-confirm').addEventListener('click', closeConfirm);
 dialogConfirm.addEventListener('click', e => { if (e.target === dialogConfirm) closeConfirm(); });
 
-init();
+if (session) {
+  mountUserMenu(session);
+  init();
+}
