@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — simplect</title>
+  <link rel="stylesheet" href="../../style/base.css">
+  <link rel="stylesheet" href="../../style/components.css">
+  <link rel="stylesheet" href="../../style/admin.css">
+</head>
+<body>
+
+  <nav class="app-nav" aria-label="Navegação principal">
+    <div class="app-nav__brand">simplect</div>
+    <ul class="app-nav__links">
+      <li><a href="/pages/dashboard/index.html" data-page="dashboard">Dashboard</a></li>
+      <li><a href="/pages/contracts/list.html"  data-page="contratos">Contratos</a></li>
+      <li><a href="/pages/templates/index.html" data-page="templates">Templates</a></li>
+      <li><a href="/pages/admin/index.html"     data-page="admin">Admin</a></li>
+    </ul>
+    <div class="app-nav__user" id="nav-user"></div>
+  </nav>
+
+  <main class="app-main">
+
+    <header class="page-header">
+      <h1 class="page-title">Admin</h1>
+    </header>
+
+    <div class="admin-tabs" role="tablist">
+      <button class="admin-tab active" data-tab="usuarios" role="tab" aria-selected="true">Usuários</button>
+      <button class="admin-tab" data-tab="atividades" role="tab" aria-selected="false">Atividades</button>
+      <button class="admin-tab" data-tab="configuracoes" role="tab" aria-selected="false">Configurações</button>
+    </div>
+
+    <section class="admin-panel active" data-panel="usuarios">
+      <header class="page-header">
+        <h2 class="section-title">Usuários</h2>
+        <button class="btn-primary" id="btn-new-user">Novo usuário</button>
+      </header>
+      <div class="table-wrapper">
+        <table class="table" id="users-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Papel</th>
+              <th>Criado em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="users-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel" data-panel="atividades">
+      <header class="page-header">
+        <h2 class="section-title">Atividades</h2>
+      </header>
+      <div class="table-wrapper">
+        <table class="table" id="activities-table">
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th>Ação</th>
+              <th>Alvo</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody id="activities-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel" data-panel="configuracoes">
+      <header class="page-header">
+        <h2 class="section-title">Configurações</h2>
+      </header>
+      <form class="settings-form" id="settings-form">
+        <div class="form-group">
+          <label class="form-label" for="s-empresa">Nome da empresa</label>
+          <input type="text" id="s-empresa" class="form-input" value="simplect">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="s-email">E-mail de notificação</label>
+          <input type="email" id="s-email" class="form-input" value="contato@simplect.com">
+        </div>
+        <label class="settings-form__checkbox">
+          <input type="checkbox" id="s-notificacoes" checked>
+          Receber notificações por e-mail
+        </label>
+        <button type="submit" class="btn-primary" id="btn-save-settings">Salvar configurações</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Modal: Formulário de usuário -->
+  <dialog id="dialog-form" class="modal">
+    <div class="modal__header">
+      <span id="form-title">Novo usuário</span>
+      <button class="modal__close" id="btn-close-form" aria-label="Fechar">&times;</button>
+    </div>
+    <form id="user-form" novalidate>
+      <div class="modal__body">
+        <div class="form-error hidden" id="form-error"></div>
+        <div class="form-group">
+          <label class="form-label" for="f-nome">Nome <span class="required">*</span></label>
+          <input type="text" id="f-nome" name="nome" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-email">E-mail <span class="required">*</span></label>
+          <input type="email" id="f-email" name="email" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-papel">Papel <span class="required">*</span></label>
+          <select id="f-papel" name="papel" class="form-select" required>
+            <option value="user">Usuário</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-form">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btn-submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: Confirmação de exclusão -->
+  <dialog id="dialog-confirm" class="modal modal--sm">
+    <div class="modal__header">
+      <span>Excluir usuário</span>
+      <button class="modal__close" id="btn-close-confirm" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="modal__body">
+      <p id="confirm-message" class="confirm-message"></p>
+    </div>
+    <div class="modal__footer">
+      <button type="button" class="btn-secondary" id="btn-cancel-delete">Cancelar</button>
+      <button type="button" class="btn-danger" id="btn-confirm-delete">Excluir</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="../../scripts/admin/admin.js"></script>
+</body>
+</html>
