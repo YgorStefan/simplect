@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — simplect</title>
+  <link rel="stylesheet" href="../../style/base.css">
+  <link rel="stylesheet" href="../../style/components.css">
+  <link rel="stylesheet" href="../../style/login.css">
+</head>
+<body class="login-page">
+
+  <main class="login-card">
+    <div class="login-card__brand">simplect</div>
+    <h1 class="login-card__title">Entrar</h1>
+
+    <div id="error-banner" class="login-error hidden" role="alert">
+      <span id="error-message"></span>
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="f-email">E-mail</label>
+        <input type="email" id="f-email" name="email" class="form-input" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="f-senha">Senha</label>
+        <input type="password" id="f-senha" name="senha" class="form-input" required autocomplete="current-password">
+      </div>
+      <button type="submit" id="btn-submit" class="btn-primary login-card__submit">Entrar</button>
+    </form>
+
+    <p class="login-card__hint">
+      Ambiente de demonstração — use <strong>admin@simplect.com</strong> / <strong>admin123</strong> (admin)
+      ou <strong>usuario@simplect.com</strong> / <strong>user123</strong> (usuário comum). Nenhum dado é validado em servidor.
+    </p>
+  </main>
+
+  <script type="module" src="../../scripts/login/login.js"></script>
+</body>
+</html>
