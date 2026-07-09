@@ -37,6 +37,19 @@ Os dados são 4 contratos de exemplo, fixos e em memória - não tem backend nem
 
 Dica: adicione `?simulateError` na URL pra ver o estado de erro com o botão de tentar de novo.
 
+## Login e admin
+
+O acesso ao sistema é protegido por um login mockado (sessão salva em `localStorage`, sem backend real). Credenciais de demonstração, disponíveis também na própria tela de login:
+
+- **Admin:** `admin@simplect.com` / `admin123`
+- **Usuário comum:** `usuario@simplect.com` / `user123`
+
+Qualquer usuário autenticado vê o sistema inteiro, incluindo o painel **Admin** (`/pages/admin/index.html`), que reúne:
+
+- **Usuários** — CRUD mockado (listar, criar, editar, excluir)
+- **Atividades** — histórico mockado, somente leitura
+- **Configurações** — formulário de exemplo, sem persistência (recarregar volta ao estado inicial, igual ao resto do sistema)
+
 ## Estrutura
 
 ```
@@ -45,3 +58,19 @@ scripts/contracts/list.js                 lógica e interação
 scripts/contracts/contracts.requests.js   dados e operações (mock)
 style/contracts.css                        estilos
 ```
+
+## Testes
+
+Suíte E2E (Playwright) e testes unitários (`node:test`, nativo do Node — sem dependência extra).
+
+```bash
+# Testes unitários (funções puras de formatação/máscara)
+node --test teste/unit/format.test.mjs
+
+# Testes E2E (dashboard, contratos, templates, login, admin)
+cd teste
+npm install
+npx playwright test
+```
+
+Não há testes de carga/performance: o projeto é 100% front-end estático, sem backend/servidor para testar sob carga.
