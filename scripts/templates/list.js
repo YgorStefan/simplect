@@ -1,22 +1,9 @@
 import { getTemplates, createTemplate, updateTemplate, deleteTemplate } from './templates.requests.js';
 import { markActive } from '../shared/router.js';
 import { toast } from '../shared/toast.js';
+import { escapeHtml, formatDate, truncate } from '../shared/format.js';
 
 const state = { templates: [], editingId: null, deletingId: null };
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('pt-BR');
-}
-
-function escapeHtml(v) {
-  return String(v).replace(/[&<>"']/g, ch =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch])
-  );
-}
-
-function truncate(str, len = 80) {
-  return str.length > len ? str.slice(0, len) + '…' : str;
-}
 
 function render() {
   const tbody = document.getElementById('table-body');

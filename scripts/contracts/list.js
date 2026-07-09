@@ -1,6 +1,7 @@
 import { getContracts, createContract, updateContract, deleteContract, TEMPLATES } from './contracts.requests.js';
 import { markActive } from '../shared/router.js';
 import { toast } from '../shared/toast.js';
+import { escapeHtml, formatDate, onlyDigits, maskCPF, maskCNPJ, maskCEP } from '../shared/format.js';
 
 const STATUS_LABELS = {
   nao_enviado: 'Não enviado',
@@ -59,49 +60,12 @@ const btnConfirmDelete = document.getElementById('btn-confirm-delete');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('pt-BR');
-}
-
 function formatAddress(c) {
   return `${c.endereco}, ${c.numero} - ${c.bairro}, ${c.cidade}/${c.uf}`;
 }
 
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, ch =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch])
-  );
-}
-
-function onlyDigits(s) {
-  return String(s).replace(/\D/g, '');
-}
-
-function maskCPF(v) {
-  const d = onlyDigits(v).slice(0, 11);
-  if (d.length > 9) return `${d.slice(0, 3)}.${d.slice(3, 6)}.${d.slice(6, 9)}-${d.slice(9)}`;
-  if (d.length > 6) return `${d.slice(0, 3)}.${d.slice(3, 6)}.${d.slice(6)}`;
-  if (d.length > 3) return `${d.slice(0, 3)}.${d.slice(3)}`;
-  return d;
-}
-
-function maskCNPJ(v) {
-  const d = onlyDigits(v).slice(0, 14);
-  if (d.length > 12) return `${d.slice(0, 2)}.${d.slice(2, 5)}.${d.slice(5, 8)}/${d.slice(8, 12)}-${d.slice(12)}`;
-  if (d.length > 8) return `${d.slice(0, 2)}.${d.slice(2, 5)}.${d.slice(5, 8)}/${d.slice(8)}`;
-  if (d.length > 5) return `${d.slice(0, 2)}.${d.slice(2, 5)}.${d.slice(5)}`;
-  if (d.length > 2) return `${d.slice(0, 2)}.${d.slice(2)}`;
-  return d;
-}
-
 function maskDocumento(v) {
   return fTipoDoc.value === 'CNPJ' ? maskCNPJ(v) : maskCPF(v);
-}
-
-function maskCEP(v) {
-  const d = onlyDigits(v).slice(0, 8);
-  return d.length > 5 ? `${d.slice(0, 5)}-${d.slice(5)}` : d;
 }
 
 function clearInvalid() {

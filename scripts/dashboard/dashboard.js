@@ -1,5 +1,6 @@
 import { getContracts } from '../contracts/contracts.requests.js';
 import { markActive } from '../shared/router.js';
+import { escapeHtml, formatDate } from '../shared/format.js';
 
 const STATUS_LABELS = {
   nao_enviado:           'Não enviado',
@@ -27,16 +28,6 @@ function countByStatus(contracts) {
   const counts = { nao_enviado: 0, aguardando_assinatura: 0, assinado: 0, cancelado: 0 };
   contracts.forEach(c => { if (counts[c.status] !== undefined) counts[c.status]++; });
   return { total: contracts.length, ...counts };
-}
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('pt-BR');
-}
-
-function escapeHtml(v) {
-  return String(v).replace(/[&<>"']/g, ch =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch])
-  );
 }
 
 function renderKPIs(contracts) {
